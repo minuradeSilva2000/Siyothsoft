@@ -131,7 +131,7 @@ describe('Sidebar Navigation Test Suite', () => {
     cy.contains('Manage Customers', { timeout: 10000 }).should('be.visible')
 
   })
-
+  
     it('should navigate to Item page via sidebar item text', () => {
 
     // Open sidebar

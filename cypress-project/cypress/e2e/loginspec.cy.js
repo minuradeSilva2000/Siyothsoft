@@ -42,7 +42,7 @@ describe('Invalid login',() =>{
   it('Should error for invalid password ', () => {
 
     cy.visit('https://devflexi.siyothsoft.com/login')
-
+   
     cy.get('input[placeholder="Enter your username"]').type('ghl0647')
     cy.get('input[placeholder="Enter your password"]').type('123456')
     
