@@ -1,0 +1,153 @@
+describe('Sidebar Navigation Test Suite', () => {
+
+  beforeEach(() => {
+
+    // Step 1: Login
+    cy.visit('https://devflexi.siyothsoft.com/login')
+
+    cy.get('input[placeholder="Enter your username"]')
+      .type('fl01')
+
+    cy.get('input[placeholder="Enter your password"]')
+      .type('123456')
+
+    cy.get('button[type="submit"]').click()
+
+    // Wait for dashboard
+    cy.url().should('include', '/dashboard', { timeout: 10000 })
+
+    // Step 2: Go to Jobs page
+    cy.visit('https://devflexi.siyothsoft.com/jobs')
+
+  })
+   
+
+
+  it('should open sidebar and navigate to Job Plan dashboard', () => {
+
+    // Step 3: Open sidebar (hamburger menu)
+    cy.get('.navbar__hamburger', { timeout: 10000 })
+      .click()
+
+    // Step 4: Verify sidebar is visible
+    cy.get('.sidebar').should('be.visible')
+
+    // Step 5: Check Job Plan exists
+    cy.contains('Job Plan').should('be.visible')
+
+    // Step 6: Click Job Plan
+    cy.contains('Job Plan').click()
+
+    // Step 7: Verify navigation success
+    cy.contains('Job', { timeout: 10000 })
+      .should('be.visible')
+
+  })
+  it('check input fields are correctly working',()=>{
+    
+     cy.visit('https://devflexi.siyothsoft.com/job-plan')
+    cy.get('input[placeholder="Enter job no"]').type('Quality Assurance internship')
+    cy.get('input[type="date"]').eq(0).type('2026-05-27')
+    cy.get('input[type="date"]').eq(1).type('2026-07-27')
+
+  
+
+  })
+  it('check  preview button are working',()=>{
+    cy.visit('https://devflexi.siyothsoft.com/job-plan')
+    cy.get('input[placeholder="Enter job no"]').type('SE internship')
+    cy.get('input[type="date"]').eq(0).type('2026-04-27')
+    cy.get('input[type="date"]').eq(1).type('2026-07-27')
+    
+     cy.intercept('POST','**/api/job-plan/preview*').as('previewData')
+     cy.contains('Preview').click()
+     cy.wait('@previewData', { timeout: 40000 }).its('response.statusCode').should('eq', 200)
+     cy.contains('SE internship').should('exist')
+     cy.contains('2026-04-27').should('exist')
+     cy.contains('2026-07-27').should('exist')
+
+  })
+   it('check  reset button are working',()=>{
+    cy.visit('https://devflexi.siyothsoft.com/job-plan')
+    
+    cy.get('input[placeholder="Enter job no"]').type('Devops internship')
+    cy.get('input[type="date"]').eq(0).type('2026-03-27')
+    cy.get('input[type="date"]').eq(1).type('2026-07-27')
+
+    cy.contains('Reset').click()
+    
+
+    cy.get('input[placeholder="Enter job no"]').should('have.value', '')
+    cy.get('input[type="date"]').eq(0).should('have.value', '')
+    cy.get('input[type="date"]').eq(1).should('have.value', '')
+
+  })
+  it('should navigate back to Jobs page when the Go to Jobs button is clicked',()=>{
+
+   cy.visit('https://devflexi.siyothsoft.com/job-plan')
+   cy.contains('Go to Jobs').click()
+
+   cy.url().should('include', '/jobs')
+  })
+  
+
+  it('should navigate to Machine page via sidebar item text', () => {
+
+    // Open sidebar
+    cy.get('.navbar__hamburger', { timeout: 10000 }).click()
+    cy.get('.sidebar').should('be.visible')
+
+    // Click Job Plan via sidebar item text
+    cy.get('.sidebar__item-text').contains('Machine').click()
+
+    // Verify  page is displayed
+    cy.contains('Machine View', { timeout: 10000 }).should('be.visible')
+
+  })
+
+    it('should navigate to Actual Job page via sidebar item text', () => {
+
+    // Open sidebar
+    cy.get('.navbar__hamburger', { timeout: 10000 }).click()
+    cy.get('.sidebar').should('be.visible')
+
+    // Click Job Plan via sidebar item text
+    cy.get('.sidebar__item-text').contains('Actual Job').click()
+
+    // Verify Job Plan page is displayed
+    cy.contains('Actual Jobs', { timeout: 10000 }).should('be.visible')
+
+  })
+
+    it('should navigate to Customer page via sidebar item text', () => {
+
+   
+    cy.get('.navbar__hamburger', { timeout: 10000 }).click()
+    cy.get('.sidebar').should('be.visible')
+
+    // Click Job Plan via sidebar item text
+    cy.get('.sidebar__item-text').contains('Customer').click()
+
+    cy.contains('Manage Customers', { timeout: 10000 }).should('be.visible')
+
+  })
+
+    it('should navigate to Item page via sidebar item text', () => {
+
+    // Open sidebar
+    cy.get('.navbar__hamburger', { timeout: 10000 }).click()
+    cy.get('.sidebar').should('be.visible')
+
+    // Click Job Plan via sidebar item text
+    cy.get('.sidebar__item-text').contains('Items').click()
+
+    // Verify Job Plan page is displayed
+    cy.contains('Item View', { timeout: 10000 }).should('be.visible')
+
+  })
+
+   
+  })
+
+
+
