@@ -147,7 +147,7 @@ describe('Sidebar Navigation Test Suite', () => {
   })
 
    
-  })
+ })
 
 
 
