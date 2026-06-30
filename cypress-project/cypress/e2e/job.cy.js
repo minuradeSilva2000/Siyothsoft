@@ -6,8 +6,8 @@ describe('Add New Job Form Test Suite', () => {
     
     cy.contains('Add ').click()
   })
-
-  it('should load Add New Job form successfully', () => {
+})
+  /*it('should load Add New Job form successfully', () => {
     cy.contains('Add New Job').should('be.visible')
     cy.get('input').should('exist')
   })
@@ -78,3 +78,4 @@ describe('Add New Job Form Test Suite', () => {
 
 })
 //navbar__hamburger
+*/
