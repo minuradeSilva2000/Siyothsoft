@@ -42,5 +42,17 @@ describe('Sidebar Navigation Test Suite', () => {
     cy.contains('Machine View', { timeout: 10000 }).should('be.visible')
 
   })
+  it('cick the view button and check details are visibel',()=>{
+
+    cy.visit('https://devflexi.siyothsoft.com/machines')
+
+     cy.contains('button', 'View').should('be.visible') .click()
+      // Verify table is visible
+    cy.get('table', { timeout: 10000 }).should('be.visible')
+
+    // Verify important table content
+    cy.contains('Machine Id').should('be.visible')
+    })
+    
 
 })

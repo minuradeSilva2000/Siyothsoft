@@ -145,6 +145,7 @@ describe('Sidebar Navigation Test Suite', () => {
     cy.contains('Item View', { timeout: 10000 }).should('be.visible')
 
   })
+  
 
    
  })
