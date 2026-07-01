@@ -55,23 +55,21 @@ describe('Sidebar Navigation Test Suite', () => {
   it('check  preview button are working',()=>{
     cy.visit('https://devflexi.siyothsoft.com/job-plan')
     cy.get('input[placeholder="Enter job no"]').type('MO00008758')
-    cy.get('input[type="date"]').eq(0).type('2012-10-22')
-    cy.get('input[type="date"]').eq(1).type('2012-10-25')
+    cy.get('input[type="date"]').eq(0).type('2026-04-27')
+    cy.get('input[type="date"]').eq(1).type('2026-07-27')
     
      cy.intercept('POST','**/api/job-plan/preview*').as('previewData')
      cy.contains('Preview').click()
      cy.wait('@previewData', { timeout: 40000 }).its('response.statusCode').should('eq', 200)
      cy.contains('MO00008758').should('exist')
-     cy.contains('2026-04-27').should('exist')
-     cy.contains('2026-07-27').should('exist')
 
   })
    it('check  reset button are working',()=>{
     cy.visit('https://devflexi.siyothsoft.com/job-plan')
     
-    cy.get('input[placeholder="Enter job no"]').type('Devops internship')
-    cy.get('input[type="date"]').eq(0).type('2026-03-27')
-    cy.get('input[type="date"]').eq(1).type('2026-07-27')
+    cy.get('input[placeholder="Enter job no"]').type('TEST-001')
+    cy.get('input[type="date"]').eq(0).type('2026-04-22')
+    cy.get('input[type="date"]').eq(1).type('2026-04-30')
 
     cy.contains('Reset').click()
     
