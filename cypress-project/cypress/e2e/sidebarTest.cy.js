@@ -46,23 +46,22 @@ describe('Sidebar Navigation Test Suite', () => {
   it('check input fields are correctly working',()=>{
     
      cy.visit('https://devflexi.siyothsoft.com/job-plan')
-    cy.get('input[placeholder="Enter job no"]').type('Quality Assurance internship')
-    cy.get('input[type="date"]').eq(0).type('2026-05-27')
-    cy.get('input[type="date"]').eq(1).type('2026-07-27')
+    cy.get('input[placeholder="Enter job no"]').type('MO00008758')
+     cy.contains('Preview').click()
 
   
 
   })
   it('check  preview button are working',()=>{
     cy.visit('https://devflexi.siyothsoft.com/job-plan')
-    cy.get('input[placeholder="Enter job no"]').type('SE internship')
-    cy.get('input[type="date"]').eq(0).type('2026-04-27')
-    cy.get('input[type="date"]').eq(1).type('2026-07-27')
+    cy.get('input[placeholder="Enter job no"]').type('MO00008758')
+    cy.get('input[type="date"]').eq(0).type('2012-10-22')
+    cy.get('input[type="date"]').eq(1).type('2012-10-25')
     
      cy.intercept('POST','**/api/job-plan/preview*').as('previewData')
      cy.contains('Preview').click()
      cy.wait('@previewData', { timeout: 40000 }).its('response.statusCode').should('eq', 200)
-     cy.contains('SE internship').should('exist')
+     cy.contains('MO00008758').should('exist')
      cy.contains('2026-04-27').should('exist')
      cy.contains('2026-07-27').should('exist')
 

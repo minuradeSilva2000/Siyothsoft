@@ -48,11 +48,26 @@ describe('Sidebar Navigation Test Suite', () => {
 
      cy.contains('button', 'View').should('be.visible') .click()
       // Verify table is visible
-    cy.get('table', { timeout: 10000 }).should('be.visible')
+    cy.get('table.data-table', { timeout: 10000 }).should('be.visible')
 
     // Verify important table content
-    cy.contains('Machine Id').should('be.visible')
+    cy.contains('Machine Id').should('exist').and('be.visible')
+    })
+    it('check input feild are working fill input feild  then click view button',()=>{
+    
+    cy.visit('https://devflexi.siyothsoft.com/machines')
+    cy.get('input.input').type('M1')
+    cy.contains('button', 'View').should('be.visible') .click()
+    
+    })
+    it('give valude all input feild and click view button',()=>{
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.get('input.input').type('M1')
+      cy.get('select.form-select').should('be.visible').select('G')
+
+      cy.contains('button', 'View').should('be.visible') .click()
     })
     
 
 })
+
