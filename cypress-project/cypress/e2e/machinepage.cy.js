@@ -86,6 +86,16 @@ describe('Sidebar Navigation Test Suite', () => {
       cy.contains('button', 'Prev', { timeout: 10000 }).should('be.visible').click()
       cy.url().should('include', '/machines')
     })
-    
+    it('give input value input feild  then click view button and after click rest button',()=>{
 
+       cy.visit('https://devflexi.siyothsoft.com/machines')
+        cy.get('input.input').type('FB1')
+       cy.get('select.form-select').should('be.visible').select('G')
+       cy.contains('button', 'View').should('be.visible') .click()
+       cy.contains('button', 'Reset').should('be.visible').click()
+       cy.get('input.input').should('have.value', '')
+       cy.get('select.form-select').should('have.value','')
+      
+    })
+    
 })
