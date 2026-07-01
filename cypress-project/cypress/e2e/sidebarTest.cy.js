@@ -62,6 +62,9 @@ describe('Sidebar Navigation Test Suite', () => {
      cy.contains('Preview').click()
      cy.wait('@previewData', { timeout: 40000 }).its('response.statusCode').should('eq', 200)
      cy.contains('MO00008758').should('exist')
+     cy.get('body').then(($body) => {
+       cy.task('log', 'Page body text: ' + $body.text().substring(0, 3000))
+     })
 
   })
    it('check  reset button are working',()=>{
