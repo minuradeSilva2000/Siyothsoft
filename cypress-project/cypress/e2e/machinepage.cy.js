@@ -97,5 +97,15 @@ describe('Sidebar Navigation Test Suite', () => {
        cy.get('select.form-select').should('have.value','')
       
     })
+    it('fill one input feild',()=>{
+     cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.get('select.form-select').should('be.visible').select('G')
+      cy.contains('button','View').should('be.visible').click()
+      cy.get('table.data-table', { timeout: 10000 }).should('be.visible')
+      cy.contains('Model').should('exist').and('be.visible')
+
+
+
+    })
     
 })
