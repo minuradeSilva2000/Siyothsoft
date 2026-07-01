@@ -22,7 +22,6 @@ describe('Sidebar Navigation Test Suite', () => {
   })
    
 
-
   it('should open sidebar and navigate to Machine dashboard', () => {
 
     // Step 3: Open sidebar (hamburger menu)
@@ -67,7 +66,26 @@ describe('Sidebar Navigation Test Suite', () => {
 
       cy.contains('button', 'View').should('be.visible') .click()
     })
+    it('give valude all input feild and click view button',()=>{
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.get('input.input').type('P3')
+      cy.get('select.form-select').should('be.visible').select('Y')
+
+      cy.contains('button', 'View').should('be.visible') .click()
+    })
+    it('click next button then navigate next page',()=>{
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.contains('button', 'View').click()
+      cy.contains('button', 'Next', { timeout: 10000 }).should('be.visible').click()
+      cy.url().should('include', '/machines')
+    })
+    it('click previous button then navigate previous page',()=>{
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.contains('button', 'View').click()
+      cy.contains('button', 'Next', { timeout: 10000 }).should('be.visible').click()
+      cy.contains('button', 'Prev', { timeout: 10000 }).should('be.visible').click()
+      cy.url().should('include', '/machines')
+    })
     
 
 })
-
