@@ -152,7 +152,22 @@ describe('Sidebar Navigation Test Suite', () => {
       
        
     }) 
-   
+    it('check that the input fields work correctly, fill in the form fields, click the Save button, and verify successful navigation to the next page',()=>{
+        
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.contains('button', 'Add').should('be.visible') .click()
+      cy.get('form.machine-detail__form').should('be.visible')
+      cy.get('form.machine-detail__form input').first().type('M7')
+      cy.get('form.machine-detail__form select.form-select').eq(0).should('be.visible').select('10')
+      cy.get('form.machine-detail__form select.form-select').eq(1).should('be.visible').select('12')
+      cy.get('form.machine-detail__form select.form-select').eq(2).should('be.visible').select('D')
+      cy.contains('button', 'Save').should('be.visible').click()
+      
+      cy.contains('Print Types', { timeout: 10000 }).should('be.visible').click()
+
+
+    
+    })
 
   
   })
