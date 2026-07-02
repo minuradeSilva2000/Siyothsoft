@@ -55,21 +55,21 @@ describe('Sidebar Navigation Test Suite', () => {
     it('check input feild are working fill input feild  then click view button',()=>{
     
     cy.visit('https://devflexi.siyothsoft.com/machines')
-    cy.get('input.input').type('M1')
+    cy.get('input.input').first().type('M1')
     cy.contains('button', 'View').should('be.visible') .click()
     
     })
     it('give valude all input feild and click view button',()=>{
       cy.visit('https://devflexi.siyothsoft.com/machines')
-      cy.get('input.input').type('M1')
-      cy.get('select.form-select').should('be.visible').select('G')
+      cy.get('input.input').first().type('M1')
+      cy.get('select.form-select').eq(0).should('be.visible').select('G')
 
       cy.contains('button', 'View').should('be.visible') .click()
     })
     it('give valude all input feild and click view button',()=>{
       cy.visit('https://devflexi.siyothsoft.com/machines')
-      cy.get('input.input').type('P3')
-      cy.get('select.form-select').should('be.visible').select('Y')
+      cy.get('input.input').first().type('P3')
+      cy.get('select.form-select').eq(0).should('be.visible').select('Y')
 
       cy.contains('button', 'View').should('be.visible') .click()
     })
@@ -107,5 +107,53 @@ describe('Sidebar Navigation Test Suite', () => {
 
 
     })
+    it('click the add button check form should be visible',()=>{
+
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.contains('button', 'Add').should('be.visible') .click()
+      cy.get('form.machine-detail__form').should('be.visible')
+      
+      
+      
+    })
+    it('check the input feild are working fill input feild and click  cancel button',()=>{
+
+       cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.contains('button', 'Add').should('be.visible') .click()
+      cy.get('form.machine-detail__form').should('be.visible')
+      cy.get('form.machine-detail__form input').first().type('M7')
+      cy.get('form.machine-detail__form select.form-select').eq(0).should('be.visible').select('10')
+      cy.get('form.machine-detail__form select.form-select').eq(1).should('be.visible').select('12')
+      cy.get('form.machine-detail__form select.form-select').eq(2).should('be.visible').select('D2')
+      cy.contains('button', 'Close').should('be.visible') .click()
+    })
+    it('check the input feild are working fill input feild and click  undo button',()=>{
+      cy.visit('https://devflexi.siyothsoft.com/machines')
+      cy.contains('button', 'Add').should('be.visible') .click()
+      cy.get('form.machine-detail__form input').first().type('M7')
+      cy.get('form.machine-detail__form select.form-select').eq(0).should('be.visible').select('10')
+      cy.get('form.machine-detail__form select.form-select').eq(1).should('be.visible').select('12')
+      cy.get('form.machine-detail__form select.form-select').eq(2).should('be.visible').select('D2')
+      cy.contains('button','Undo').should('be.visible') .click()
+      cy.get('form.machine-detail__form input').first().should('have.value', '')
+      cy.get('form.machine-detail__form select.form-select').eq(0).should(($el) => { expect($el[0].selectedIndex).to.equal(0) })
+      cy.get('form.machine-detail__form select.form-select').eq(1).should(($el) => { expect($el[0].selectedIndex).to.equal(0) })
+      cy.get('form.machine-detail__form select.form-select').eq(2).should(($el) => { expect($el[0].selectedIndex).to.equal(0) })
+    })
+    it('check the input feild are working fill input feild and click  save button',()=>{
+       cy.visit('https://devflexi.siyothsoft.com/machines')
+       cy.contains('button', 'Add').should('be.visible') .click()
+      cy.get('form.machine-detail__form').should('be.visible')
+      cy.get('form.machine-detail__form input').first().type('M7')
+      cy.get('form.machine-detail__form select.form-select').eq(0).should('be.visible').select('10')
+      cy.get('form.machine-detail__form select.form-select').eq(1).should('be.visible').select('12')
+      cy.get('form.machine-detail__form select.form-select').eq(2).should('be.visible').select('D2')
+      cy.contains('button', 'Save').should('be.visible').click()
+      
+       
+    }) 
     
-})
+
+  
+  })
+
